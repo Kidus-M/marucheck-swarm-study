@@ -1,0 +1,308 @@
+[
+  {
+    "repo": "quota-service",
+    "task": "usage-summary",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "quota-service",
+    "task": "validate-request",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "quota-service",
+    "task": "decision-log",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "quota-service",
+    "task": "team-plan",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "quota-service",
+    "task": "denial-messages",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "quota-service",
+    "task": "batch-generate",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "invoice-listing",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "payment-failed",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "event-count",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "refund-report",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "customer-summary",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "billing-webhooks",
+    "task": "health-endpoint",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "audit-query",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "workspace-documents",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "revoke-member",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "session-refresh",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "list-endpoint",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  },
+  {
+    "repo": "access-control",
+    "task": "denial-report",
+    "m3": {
+      "blocked": false,
+      "detail": "passed"
+    },
+    "m4": {
+      "blocked": false,
+      "detail": "ProofLayer: SUCCESS"
+    },
+    "m5": {
+      "blocked": false,
+      "detail": "passed",
+      "refused": false
+    }
+  }
+]
