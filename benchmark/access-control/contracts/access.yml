@@ -1,0 +1,44 @@
+version: 1
+id: access
+title: Document Access Control
+status: draft
+criticality: high
+intent: A document is only reachable by a live session whose workspace role permits the action, and every decision is recorded.
+owners:
+  - product
+  - security
+requirements:
+  - id: AC-001
+    statement: Viewers, editors and admins of a workspace may read its documents.
+    priority: required
+  - id: AC-002
+    statement: Editors and admins may edit documents, and viewers may not.
+    priority: required
+  - id: AC-003
+    statement: Only admins may delete documents.
+    priority: required
+invariants:
+  - id: AC-INV-001
+    statement: A role in one workspace grants nothing in another workspace.
+  - id: AC-INV-002
+    statement: A request with an unknown token is refused and returns no document.
+  - id: AC-INV-003
+    statement: An expired or revoked session is refused.
+  - id: AC-INV-004
+    statement: Every allowed and denied decision is written to the audit log.
+edge_cases:
+  - a session expires exactly at the current time
+  - a user is an admin of a different workspace
+security:
+  - resolve the user from the session on the server
+data_integrity:
+  - keep the audit log append only
+evidence_policy:
+  blocking_requirements:
+    - AC-001
+    - AC-002
+    - AC-003
+    - AC-INV-001
+    - AC-INV-002
+    - AC-INV-003
+    - AC-INV-004

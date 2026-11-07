@@ -1,0 +1,49 @@
+version: 1
+id: usage-quota
+title: Usage Quota
+status: draft
+criticality: high
+intent: Free accounts receive a fixed monthly generation allowance, pro accounts are unmetered, and entitlement always comes from the stored subscription.
+owners:
+  - product
+  - engineering
+requirements:
+  - id: QS-001
+    statement: Free plan users may perform at most 10 generations per calendar month.
+    priority: required
+  - id: QS-002
+    statement: Active pro plan users have no monthly generation limit.
+    priority: required
+  - id: QS-003
+    statement: A canceled subscription is metered as the free plan.
+    priority: required
+  - id: QS-004
+    statement: A denied generation does not count against usage.
+    priority: required
+  - id: QS-005
+    statement: Usage resets when the UTC calendar month changes.
+    priority: required
+invariants:
+  - id: QS-INV-001
+    statement: The plan used for a decision comes from the stored subscription and never from client-supplied data.
+  - id: QS-INV-002
+    statement: One user's usage never affects another user's quota.
+  - id: QS-INV-003
+    statement: A user with no stored subscription is refused and records no usage.
+edge_cases:
+  - the client claims a plan that contradicts the stored subscription
+  - a request arrives exactly at the UTC month boundary
+security:
+  - resolve entitlements server-side from the stored subscription
+data_integrity:
+  - keep one usage counter per user per calendar month
+evidence_policy:
+  blocking_requirements:
+    - QS-001
+    - QS-002
+    - QS-003
+    - QS-004
+    - QS-005
+    - QS-INV-001
+    - QS-INV-002
+    - QS-INV-003

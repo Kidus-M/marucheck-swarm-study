@@ -1,0 +1,48 @@
+version: 1
+id: billing
+title: Billing Webhooks
+status: draft
+criticality: high
+intent: Subscription access and invoice records follow verified payment provider events exactly once, and nothing else can change them.
+owners:
+  - product
+  - engineering
+requirements:
+  - id: BW-001
+    statement: A successful payment grants pro access.
+    priority: required
+  - id: BW-002
+    statement: A canceled subscription loses pro access.
+    priority: required
+  - id: BW-003
+    statement: A refunded payment removes pro access.
+    priority: required
+  - id: BW-004
+    statement: A successful payment records an invoice with the paid amount.
+    priority: required
+invariants:
+  - id: BW-INV-001
+    statement: An event with an invalid signature is rejected and changes nothing.
+  - id: BW-INV-002
+    statement: An event outside the signature tolerance window is rejected.
+  - id: BW-INV-003
+    statement: A duplicate event is applied at most once.
+  - id: BW-INV-004
+    statement: Refunds on an invoice never exceed the amount paid.
+edge_cases:
+  - the same event is delivered twice
+  - an event arrives after the replay window has passed
+security:
+  - verify every webhook signature before reading the body
+data_integrity:
+  - keep one processed-event record per provider event id
+evidence_policy:
+  blocking_requirements:
+    - BW-001
+    - BW-002
+    - BW-003
+    - BW-004
+    - BW-INV-001
+    - BW-INV-002
+    - BW-INV-003
+    - BW-INV-004

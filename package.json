@@ -1,0 +1,10 @@
+{
+  "name": "swarm-study",
+  "private": true,
+  "type": "module",
+  "description": "Benchmark and harness for the behavioral-oracle study. MaruCheck itself is preexisting up to tag pre-sprint-baseline.",
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "4.1.0"
+  }
+}
