@@ -17,7 +17,7 @@ MODEL = "glm-5.2"
 SEEDS = [int(value) for value in (sys.argv[1] if len(sys.argv) > 1 else "1").split(",")]
 ONLY = sys.argv[2] if len(sys.argv) > 2 else None
 ATTEMPTS = 4
-WORKERS = 5
+WORKERS = 8
 OUT = STUDY / "runs" / "chains"
 SIZES = {"concentrated": 1, "split3": 3, "split6": 6, "evade": 3}
 

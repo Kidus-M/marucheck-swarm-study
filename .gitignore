@@ -3,3 +3,4 @@ node_modules/
 *.key
 runs/tmp/
 .venv/
+__pycache__/
