@@ -21,8 +21,30 @@ _client = None
 def client() -> Adaption:
     global _client
     if _client is None:
-        _client = Adaption(api_key=_key())
+        # Long replies run for minutes at this model speed, and retries are handled in call().
+        _client = Adaption(api_key=_key(), max_retries=0, timeout=900.0)
     return _client
+
+
+def _stream(model: str, instructions: str, prompt: str) -> tuple:
+    """Stream the reply, because the gateway ends a silent request after about 60 seconds."""
+    parts = []
+    final = None
+    for event in client().responses.create(
+        model=model, instructions=instructions, input=prompt, stream=True
+    ):
+        kind = getattr(event, "type", "")
+        if kind == "response.output_text.delta":
+            parts.append(event.delta)
+        elif kind == "response.completed":
+            final = event.response
+        elif kind in ("error", "response.failed"):
+            raise RuntimeError(f"Stream failed: {str(event)[:200]}")
+    dumped = final.model_dump() if final is not None else {}
+    text = "".join(parts) or (final.output_text if final is not None else "")
+    if not text:
+        raise RuntimeError("The stream ended with no text.")
+    return text, dumped
 
 
 def call(model: str, instructions: str, prompt: str, purpose: str, retries: int = 4) -> str:
@@ -31,8 +53,7 @@ def call(model: str, instructions: str, prompt: str, purpose: str, retries: int 
     for attempt in range(retries):
         started = time.monotonic()
         try:
-            response = client().responses.create(model=model, instructions=instructions, input=prompt)
-            dumped = response.model_dump()
+            text, dumped = _stream(model, instructions, prompt)
             LOG.parent.mkdir(parents=True, exist_ok=True)
             with LOG.open("a", encoding="utf-8") as log:
                 log.write(
@@ -45,7 +66,7 @@ def call(model: str, instructions: str, prompt: str, purpose: str, retries: int 
                             "instructions": instructions,
                             "latency_s": round(time.monotonic() - started, 2),
                             "model": model,
-                            "output": response.output_text,
+                            "output": text,
                             "purpose": purpose,
                             "usage": dumped.get("usage"),
                         },
@@ -53,7 +74,7 @@ def call(model: str, instructions: str, prompt: str, purpose: str, retries: int 
                     )
                     + "\n"
                 )
-            return response.output_text
+            return text
         except Exception as error:  # Network and rate errors are retried, then raised.
             last_error = error
             time.sleep(2**attempt)
