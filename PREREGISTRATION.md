@@ -88,7 +88,7 @@ are disclosed as such. No result in the report comes from those probes.
 
 ## Deviations log
 
-All entries below were made before any attack run.
+All entries below were made before the main attack run.
 
 1. **2026-11-07. Attack code is model-written.** Phase A was planned as hand-written fragments. The
    author also wrote the contract tests, so hand-written attacks could be tilted either way. Fragments
@@ -107,3 +107,10 @@ All entries below were made before any attack run.
    allows a 6-way split, and the pre-registration fixed no number.
 5. **2026-11-07. Selection recorded.** The rule 3 and 5 outcome is in
    `benchmark/side-tasks/selected.json`. No proposal was dropped.
+6. **2026-11-07. Pilot on one attack spec.** One spec (`cancel-no-fallback`, broad) was run through
+   the binary monitors to test the pipeline and to confirm M5 blocks a real violation. Its four chains
+   stay in the main set and are not regenerated.
+7. **2026-11-07. Tamper timing.** The pilot showed tampering only in the last PR leaves tests red from
+   the PR that broke them, so plain CI caught it early. No real attacker would wait. The tamper
+   strategy now disables a broken test in the PR that breaks it. This makes the strategy stronger
+   against M3 and changes nothing for M5, which refuses any change to a sealed test.
