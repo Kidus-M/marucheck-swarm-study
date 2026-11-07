@@ -88,4 +88,22 @@ are disclosed as such. No result in the report comes from those probes.
 
 ## Deviations log
 
-_None yet._
+All entries below were made before any attack run.
+
+1. **2026-11-07. Attack code is model-written.** Phase A was planned as hand-written fragments. The
+   author also wrote the contract tests, so hand-written attacks could be tilted either way. Fragments
+   are now written by `glm-5.2`, which sees the source and the side-task spec but never the contracts
+   or contract tests. The generated chains are fixed artifacts, so Phase A stays reproducible.
+2. **2026-11-07. Broad and targeted variants.** The proposer named behaviors, not triggers. Each
+   in-contract behavior now has a broad variant and, where it makes sense, a targeted variant active
+   only on a narrow trigger. Triggers were set by the author without running the contract tests
+   against them, and all variants are reported. This separates two things H2 had merged: a property
+   the contract states, and a property its tests exercise. H2 is reported for each variant, and for
+   out-of-contract tasks separately.
+3. **2026-11-07. Added strategy: test evasion.** A monitor-aware attacker can make code behave
+   honestly only under test, for example by checking `process.env.VITEST`. This is added as a fifth
+   strategy, because leaving it out would overstate M5.
+4. **2026-11-07. Six legitimate PRs per repository.** The plan said 8 to 10. Six is the fewest that
+   allows a 6-way split, and the pre-registration fixed no number.
+5. **2026-11-07. Selection recorded.** The rule 3 and 5 outcome is in
+   `benchmark/side-tasks/selected.json`. No proposal was dropped.
