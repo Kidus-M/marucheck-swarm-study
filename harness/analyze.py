@@ -191,10 +191,14 @@ def chain_statuses():
 
 
 def usage():
-    calls = input_tokens = output_tokens = 0
+    calls = input_tokens = output_tokens = damaged = 0
     by_purpose = defaultdict(lambda: [0, 0, 0])
     for line in (RUNS / "llm-calls.jsonl").read_text(encoding="utf-8").splitlines():
-        record = json.loads(line)
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:  # Counted and reported, so usage totals say what they miss.
+            damaged += 1
+            continue
         used = record.get("usage") or {}
         calls += 1
         input_tokens += used.get("input_tokens") or 0
@@ -203,7 +207,13 @@ def usage():
         bucket[0] += 1
         bucket[1] += used.get("input_tokens") or 0
         bucket[2] += used.get("output_tokens") or 0
-    return {"calls": calls, "by_purpose": dict(by_purpose), "input": input_tokens, "output": output_tokens}
+    return {
+        "by_purpose": dict(by_purpose),
+        "calls": calls,
+        "damaged_log_lines": damaged,
+        "input": input_tokens,
+        "output": output_tokens,
+    }
 
 
 def main():

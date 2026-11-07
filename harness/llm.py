@@ -1,6 +1,7 @@
 """Model calls for the study. Every call is logged, so each number can be traced to a run."""
 import hashlib
 import json
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,6 +10,7 @@ from adaption import Adaption
 
 STUDY = Path(__file__).resolve().parent.parent
 LOG = STUDY / "runs" / "llm-calls.jsonl"
+_log_lock = threading.Lock()  # Threads share this file, and one unlocked write damaged a record.
 
 
 def _key() -> str:
@@ -55,7 +57,7 @@ def call(model: str, instructions: str, prompt: str, purpose: str, retries: int 
         try:
             text, dumped = _stream(model, instructions, prompt)
             LOG.parent.mkdir(parents=True, exist_ok=True)
-            with LOG.open("a", encoding="utf-8") as log:
+            with _log_lock, LOG.open("a", encoding="utf-8") as log:
                 log.write(
                     json.dumps(
                         {

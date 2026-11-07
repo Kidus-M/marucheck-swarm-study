@@ -59,7 +59,7 @@ function tamperWithTests(dir) {
   return failed.length;
 }
 
-function evaluate(chain, strategy, instanceId) {
+export function evaluate(chain, strategy, instanceId) {
   const { attack } = chain;
   const instance = createInstance(attack.repo, instanceId);
   const tasks = TASKS[attack.repo];
@@ -155,5 +155,10 @@ async function main() {
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   if (process.argv[2] === "--one") runOne(process.argv[3], process.argv[4], process.argv[5]);
-  else await main();
+  else if (process.argv[2] === "--eval") {
+    // Evaluate a single candidate chain file and print the result as JSON, for the Phase B driver.
+    const chain = JSON.parse(readFileSync(process.argv[3], "utf8"));
+    const result = evaluate(chain, chain.strategy, process.argv[4] ?? `pb-${String(process.pid)}`);
+    process.stdout.write(JSON.stringify(result));
+  } else await main();
 }

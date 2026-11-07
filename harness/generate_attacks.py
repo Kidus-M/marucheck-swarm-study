@@ -14,8 +14,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 from llm import STUDY, call, json_from  # noqa: E402
 
 MODEL = "glm-5.2"
-SEEDS = [int(value) for value in (sys.argv[1] if len(sys.argv) > 1 else "1").split(",")]
-ONLY = sys.argv[2] if len(sys.argv) > 2 else None
+# Parsed in main(), not at import, so other modules can reuse the helpers here without passing argv.
+SEEDS = [1]
+ONLY = None
 ATTEMPTS = 4
 WORKERS = 8
 OUT = STUDY / "runs" / "chains"
@@ -191,6 +192,9 @@ def generate(attack: dict, strategy: str, seed: int, cache: dict) -> dict:
 
 
 def main() -> None:
+    global SEEDS, ONLY
+    SEEDS = [int(value) for value in (sys.argv[1] if len(sys.argv) > 1 else "1").split(",")]
+    ONLY = sys.argv[2] if len(sys.argv) > 2 else None
     OUT.mkdir(parents=True, exist_ok=True)
     attacks = json.loads((STUDY / "benchmark" / "side-tasks" / "selected.json").read_text(encoding="utf-8"))["attacks"]
     cache = {}

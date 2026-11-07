@@ -1,6 +1,15 @@
+# Dependencies and environments
 node_modules/
-.env
-*.key
-runs/tmp/
 .venv/
 __pycache__/
+
+# Secrets
+.env
+*.key
+
+# Generated run data: thousands of files, regenerable from the harness, and some of it (attack
+# fragments, chains with their diffs, per-PR monitor scores, the model call log) is withheld from the
+# public repository. Only the aggregate results and the reference chain run are published.
+runs/*
+!runs/honest-chain.json
+!runs/analysis/
